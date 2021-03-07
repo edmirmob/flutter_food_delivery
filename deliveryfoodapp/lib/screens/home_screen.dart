@@ -12,15 +12,19 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
   _buildRestaurants() {
     List<Widget> restaurantList = [];
     restaurants.forEach((rest) {
       restaurantList.add(
         GestureDetector(
-          onTap: (){
-            return Navigator.push(context, MaterialPageRoute(builder: (_)=>RestaurantScreen(restaurant: rest)));
+          onTap: () {
+            return Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (_) => RestaurantScreen(restaurant: rest)));
           },
-                  child: Container(
+          child: Container(
             margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             decoration: BoxDecoration(
               color: Colors.white,
@@ -34,11 +38,14 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 ClipRRect(
                   borderRadius: BorderRadius.circular(15),
-                            child: Image(
-                    height: 150,
-                    width: 150,
-                    image: AssetImage(rest.imageUrl),
-                    fit: BoxFit.cover,
+                  child: Hero(
+                    tag: rest.imageUrl,
+                    child: Image(
+                      height: 150,
+                      width: 150,
+                      image: AssetImage(rest.imageUrl),
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
                 Container(
@@ -49,7 +56,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       Text(
                         rest.name,
-                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
                         overflow: TextOverflow.ellipsis,
                       ),
                       RatingStars(rest.rating),
@@ -58,7 +66,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       Text(
                         rest.address,
-                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.w600),
                         overflow: TextOverflow.ellipsis,
                       ),
                       SizedBox(
@@ -66,7 +75,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       Text(
                         '0,2 miles away',
-                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.w600),
                         overflow: TextOverflow.ellipsis,
                       ),
                     ],
