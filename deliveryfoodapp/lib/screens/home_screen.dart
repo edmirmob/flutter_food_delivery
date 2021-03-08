@@ -1,4 +1,5 @@
 import 'package:deliveryfoodapp/data/data.dart';
+import 'package:deliveryfoodapp/screens/cart_screen.dart';
 import 'package:deliveryfoodapp/screens/restaurant_screen.dart';
 import 'package:deliveryfoodapp/widgets/rating_stars.dart';
 import 'package:deliveryfoodapp/widgets/recent_orders.dart';
@@ -10,9 +11,7 @@ class HomeScreen extends StatefulWidget {
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
-
 class _HomeScreenState extends State<HomeScreen> {
-
   _buildRestaurants() {
     List<Widget> restaurantList = [];
     restaurants.forEach((rest) {
@@ -105,7 +104,7 @@ class _HomeScreenState extends State<HomeScreen> {
         title: Center(child: Text('Food Delivery')),
         actions: [
           TextButton(
-            onPressed: () {},
+            onPressed: ()=> Navigator.push(context, MaterialPageRoute(builder: (_)=>CartScreen(),),),
             child: Text(
               'Cart (${currentUser.cart.length})',
               style: TextStyle(color: Colors.white, fontSize: 20.0),

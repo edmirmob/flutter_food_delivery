@@ -1,3 +1,4 @@
+import 'package:deliveryfoodapp/models/food.dart';
 import 'package:deliveryfoodapp/models/restaurant.dart';
 import 'package:deliveryfoodapp/widgets/rating_stars.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +13,88 @@ class RestaurantScreen extends StatefulWidget {
 }
 
 class _RestaurantScreenState extends State<RestaurantScreen> {
+  _buildMenuItem(Food menuItem) {
+    return Center(
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            Container(
+              height: 175,
+              width: 175,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage(
+                    menuItem.imageUrl,
+                  ),
+                  fit: BoxFit.cover,
+                ),
+                borderRadius: BorderRadius.circular(15),
+              ),
+            ),
+            Container(
+              height: 175,
+              width: 175,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15),
+                gradient: LinearGradient(
+                  begin: Alignment.topRight,
+                  end: Alignment.bottomLeft,
+                  colors: [
+                    Colors.black.withOpacity(0.3),
+                    Colors.black87.withOpacity(0.3),
+                    Colors.green[200].withOpacity(0.3),
+                    Colors.black38.withOpacity(0.3),
+                  ],
+                  stops: [
+                    0.1,
+                    0.5,
+                    0.7,
+                    0.9,
+                  ],
+                ),
+              ),
+            ),
+            Column(
+
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  menuItem.name,
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: 1.2),
+                ),
+                Text(
+                  '\$${menuItem.price}',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: 1.2),
+                ),
+              ],
+            ),
+            Positioned(
+              bottom: 20,
+              right: 10,
+              child:   Container(
+                decoration: BoxDecoration(
+                  color: Theme.of(context).primaryColor,
+                  borderRadius: BorderRadius.circular(30),
+                ),
+                child: IconButton(
+                  icon: Icon(Icons.add),
+                  color: Colors.white,
+                  iconSize: 30,
+                  onPressed: () {},
+                ),
+              ),)
+          ],
+        ));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -116,10 +199,35 @@ class _RestaurantScreenState extends State<RestaurantScreen> {
                       ),
                     ),
                   ],
-                )
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Center(
+                  child: Text(
+                    'Menu',
+                    style: TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.w600,
+                        letterSpacing: 1.2),
+                  ),
+                ),
               ],
             ),
-          )
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          Flexible(
+            child: GridView.count(
+              padding: EdgeInsets.all(10),
+              crossAxisCount: 2,
+              children: List.generate(widget.restaurant.menu.length, (index) {
+                Food food = widget.restaurant.menu[index];
+                return _buildMenuItem(food);
+              }),
+            ),
+          ),
         ],
       ),
     );
